@@ -34,7 +34,9 @@ struct SituationView: View {
                         }
                     }
                     .padding(.horizontal, 24)
+                    .padding(.bottom, 16)
                 }
+                .scrollIndicators(.visible)
 
                 PrimaryButton(title: "Continue", action: onContinue)
                     .disabled(selectedSituation == nil)

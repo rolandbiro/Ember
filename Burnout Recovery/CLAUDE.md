@@ -92,3 +92,4 @@ Burnout Recovery/
 - **UserDefaults persistence**: Services encode/decode Codable models directly
 - **Daily task generation**: Random selection prioritizing category diversity, regenerates at midnight
 - **Celebration overlays**: Level-up and task completion celebrations use ZStack overlays
+- minden egyes alkalommal, amikor fejlesztesz, a KISS alapelvek alapján tedd

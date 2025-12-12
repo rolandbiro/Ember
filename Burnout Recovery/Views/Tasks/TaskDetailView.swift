@@ -51,23 +51,27 @@ struct TaskDetailView: View {
                             .padding(.horizontal, 24)
                     }
                 }
-                .padding(.bottom, 150) // Space for button + tab bar
+                .padding(.bottom, 120)
             }
+            .scrollIndicators(.visible)
 
             VStack {
                 Spacer()
-                PrimaryButton(title: "Complete Task", action: completeTask)
-                    .disabled(!canComplete)
-                    .padding(.horizontal, 32)
-                    .padding(.bottom, 30)
-                    .background(
-                        LinearGradient(
-                            colors: [.clear, .cosmosBackground],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .frame(height: 100)
+
+                VStack(spacing: 0) {
+                    LinearGradient(
+                        colors: [.clear, .cosmosBackground],
+                        startPoint: .top,
+                        endPoint: .bottom
                     )
+                    .frame(height: 40)
+
+                    PrimaryButton(title: "Complete Task", action: completeTask)
+                        .disabled(!canComplete)
+                        .padding(.horizontal, 32)
+                        .padding(.bottom, 30)
+                        .background(Color.cosmosBackground)
+                }
             }
 
             if showCelebration {

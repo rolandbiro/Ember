@@ -63,7 +63,9 @@ struct AssessmentView: View {
                         }
                     }
                     .padding(.horizontal, 24)
+                    .padding(.bottom, 16)
                 }
+                .scrollIndicators(.visible)
 
                 // Navigation - only Back and See Results (no Next button)
                 HStack(spacing: 16) {
