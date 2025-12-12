@@ -148,7 +148,7 @@
           "Normal, I think",
           "Already breathing deeply"
         ],
-        "followUp": "Take three slow breaths right now.",
+        "instruction": "Take three slow breaths right now.",
         "completion": "Notice the difference? Your breath is always available to reset."
       },
       "evidence": "Breath awareness is foundational to mindfulness practice"
