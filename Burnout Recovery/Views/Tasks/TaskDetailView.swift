@@ -50,9 +50,8 @@ struct TaskDetailView: View {
                         noteField
                             .padding(.horizontal, 24)
                     }
-
-                    Spacer(minLength: 100)
                 }
+                .padding(.bottom, 150) // Space for button + tab bar
             }
 
             VStack {
