@@ -41,15 +41,52 @@ struct TaskOption: Codable, Identifiable {
     let text: String
 }
 
+struct TaskContent: Codable {
+    let instruction: String?
+    let question: String?
+    let options: [String]?
+    let rounds: Int?
+    let duration: Int?
+    let slider: SliderConfig?
+    let followUp: FollowUpConfig?
+    let notePrompt: String?
+    let notePlaceholder: String?
+    let completion: String?
+    let multiSelect: Bool?
+    let maxSelect: Int?
+    let exactSelect: Int?
+}
+
+struct SliderConfig: Codable {
+    let question: String?
+    let min: Int?
+    let max: Int?
+    let minLabel: String?
+    let maxLabel: String?
+    let options: [String]?
+}
+
+struct FollowUpConfig: Codable {
+    let question: String?
+    let options: [String]?
+}
+
 struct RecoveryTask: Codable, Identifiable {
     let id: String
     let category: TaskCategory
     let title: String
     let description: String
     let uiType: TaskUIType
-    let options: [TaskOption]?
+    let stardust: Int
     let duration: Int?
-    let stardustReward: Int
+    let content: TaskContent?
+
+    var stardustReward: Int { stardust }
+
+    var options: [TaskOption]? {
+        guard let opts = content?.options else { return nil }
+        return opts.enumerated().map { TaskOption(id: "\(id)_\($0.offset)", text: $0.element) }
+    }
 }
 
 struct DailyTask: Identifiable {
