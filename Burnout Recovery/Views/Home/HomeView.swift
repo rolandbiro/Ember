@@ -4,6 +4,11 @@ struct HomeView: View {
     @ObservedObject var userService = UserService.shared
     @ObservedObject var taskService = TaskService.shared
     @State private var selectedTask: DailyTask?
+    @State private var showWelcome = true
+
+    private var isFirstTime: Bool {
+        userService.user.totalTasksCompleted == 0
+    }
 
     var body: some View {
         NavigationStack {
@@ -21,6 +26,14 @@ struct HomeView: View {
                         )
                         .padding(.horizontal, 20)
 
+                        // Welcome banner for first time
+                        if showWelcome && isFirstTime && !taskService.dailyTasks.isEmpty {
+                            WelcomeBanner {
+                                withAnimation { showWelcome = false }
+                            }
+                            .padding(.horizontal, 20)
+                        }
+
                         VStack(alignment: .leading, spacing: 16) {
                             HStack {
                                 Text("Today's Tasks")
@@ -34,9 +47,19 @@ struct HomeView: View {
                                     .foregroundColor(.softLavender)
                             }
 
-                            ForEach(taskService.dailyTasks) { dailyTask in
-                                TaskCard(dailyTask: dailyTask) {
-                                    selectedTask = dailyTask
+                            if taskService.dailyTasks.isEmpty {
+                                EmptyTasksView {
+                                    taskService.generateDailyTasks()
+                                }
+                            } else if taskService.allCompleted {
+                                AllDoneView {
+                                    taskService.addBonusTask()
+                                }
+                            } else {
+                                ForEach(taskService.dailyTasks) { dailyTask in
+                                    TaskCard(dailyTask: dailyTask) {
+                                        selectedTask = dailyTask
+                                    }
                                 }
                             }
                         }
@@ -49,6 +72,96 @@ struct HomeView: View {
                 TaskDetailView(dailyTask: task)
             }
         }
+    }
+}
+
+// MARK: - Welcome Banner
+struct WelcomeBanner: View {
+    let onDismiss: () -> Void
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Welcome!")
+                    .font(.headline)
+                    .foregroundColor(.starWhite)
+                Text("Here's your first task.")
+                    .font(.subheadline)
+                    .foregroundColor(.starWhite.opacity(0.7))
+            }
+            Spacer()
+            Button(action: onDismiss) {
+                Image(systemName: "xmark")
+                    .foregroundColor(.starWhite.opacity(0.5))
+            }
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.softLavender.opacity(0.2))
+        )
+    }
+}
+
+// MARK: - Empty State
+struct EmptyTasksView: View {
+    let onRetry: () -> Void
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "tray")
+                .font(.system(size: 40))
+                .foregroundColor(.starWhite.opacity(0.3))
+            Text("Loading tasks...")
+                .foregroundColor(.starWhite.opacity(0.7))
+            Button("Retry", action: onRetry)
+                .foregroundColor(.softLavender)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(32)
+    }
+}
+
+// MARK: - All Done State
+struct AllDoneView: View {
+    let onBonusTask: () -> Void
+    @State private var showOffer = false
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "star.fill")
+                .font(.system(size: 40))
+                .foregroundColor(.softPeach)
+            Text("You're done for today!")
+                .font(.headline)
+                .foregroundColor(.starWhite)
+            Text("Great job taking care of yourself.")
+                .font(.subheadline)
+                .foregroundColor(.starWhite.opacity(0.7))
+
+            if !showOffer {
+                Button("Want to try one more?") {
+                    showOffer = true
+                }
+                .foregroundColor(.softLavender)
+            } else {
+                HStack(spacing: 16) {
+                    SecondaryButton(title: "Rest") {
+                        showOffer = false
+                    }
+                    PrimaryButton(title: "Show me") {
+                        onBonusTask()
+                        showOffer = false
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(32)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.cosmosPurple.opacity(0.5))
+        )
     }
 }
 

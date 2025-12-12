@@ -5,7 +5,7 @@ enum OnboardingStep {
     case situation
     case goal
     case assessment
-    case ready
+    case results
 }
 
 struct OnboardingCoordinator: View {
@@ -14,6 +14,8 @@ struct OnboardingCoordinator: View {
     @State private var situation: Situation?
     @State private var goal: Goal?
     @State private var pace: Pace = .steady
+    @State private var burnoutLevel: BurnoutLevel = .moderate
+    @State private var assessmentAnswers: [Int: Int] = [:]
 
     let onComplete: () -> Void
 
@@ -39,16 +41,22 @@ struct OnboardingCoordinator: View {
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
 
             case .assessment:
-                AssessmentView { calculatedPace in
+                AssessmentView { calculatedPace, answers in
                     pace = calculatedPace
-                    withAnimation { step = .ready }
+                    assessmentAnswers = answers
+                    burnoutLevel = Assessment.calculateBurnoutLevel(answers: answers)
+                    withAnimation { step = .results }
                 }
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
 
-            case .ready:
-                ReadyView(name: name, pace: pace) {
-                    saveAndComplete()
-                }
+            case .results:
+                ResultsView(
+                    name: name,
+                    pace: pace,
+                    burnoutLevel: burnoutLevel,
+                    personalizedMessage: Assessment.personalizedMessage(situation: situation, goal: goal),
+                    onStart: saveAndComplete
+                )
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             }
         }
@@ -58,6 +66,8 @@ struct OnboardingCoordinator: View {
         guard let situation = situation, let goal = goal else { return }
         UserService.shared.completeOnboarding(name: name, situation: situation, goal: goal)
         UserService.shared.completeAssessment(pace: pace)
+        // Generate tasks after onboarding
+        TaskService.shared.generateDailyTasks()
         onComplete()
     }
 }

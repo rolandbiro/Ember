@@ -3,10 +3,18 @@ import SwiftUI
 struct AssessmentView: View {
     @State private var currentQuestion = 0
     @State private var answers: [Int: Int] = [:]
-    let onComplete: (Pace) -> Void
+    let onComplete: (Pace, [Int: Int]) -> Void
 
     private var questions: [AssessmentQuestion] {
         Assessment.questions
+    }
+
+    private var isLastQuestion: Bool {
+        currentQuestion == questions.count - 1
+    }
+
+    private var lastQuestionAnswered: Bool {
+        isLastQuestion && answers[questions[currentQuestion].id] != nil
     }
 
     var body: some View {
@@ -15,6 +23,7 @@ struct AssessmentView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 24) {
+                // Progress
                 VStack(spacing: 8) {
                     Text("Question \(currentQuestion + 1) of \(questions.count)")
                         .font(.caption)
@@ -26,6 +35,7 @@ struct AssessmentView: View {
                 }
                 .padding(.top, 20)
 
+                // Question
                 VStack(spacing: 16) {
                     Text("In the past month...")
                         .font(.subheadline)
@@ -40,6 +50,7 @@ struct AssessmentView: View {
                 }
                 .padding(.top, 20)
 
+                // Options
                 ScrollView {
                     VStack(spacing: 10) {
                         ForEach(0..<Assessment.answerOptions.count, id: \.self) { index in
@@ -54,6 +65,7 @@ struct AssessmentView: View {
                     .padding(.horizontal, 24)
                 }
 
+                // Navigation - only Back and See Results (no Next button)
                 HStack(spacing: 16) {
                     if currentQuestion > 0 {
                         SecondaryButton(title: "Back") {
@@ -63,23 +75,17 @@ struct AssessmentView: View {
                         }
                     }
 
-                    if currentQuestion < questions.count - 1 {
-                        PrimaryButton(title: "Next") {
-                            withAnimation {
-                                currentQuestion += 1
-                            }
-                        }
-                        .disabled(answers[questions[currentQuestion].id] == nil)
-                    } else {
+                    if lastQuestionAnswered {
                         PrimaryButton(title: "See Results") {
                             let pace = Assessment.calculatePace(answers: answers)
-                            onComplete(pace)
+                            onComplete(pace, answers)
                         }
-                        .disabled(answers[questions[currentQuestion].id] == nil)
+                        .transition(.scale.combined(with: .opacity))
                     }
                 }
                 .padding(.horizontal, 32)
                 .padding(.bottom, 50)
+                .animation(.easeOut(duration: 0.3), value: lastQuestionAnswered)
             }
         }
     }
@@ -87,8 +93,9 @@ struct AssessmentView: View {
     private func selectAnswer(_ index: Int) {
         answers[questions[currentQuestion].id] = index
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            if currentQuestion < questions.count - 1 {
+        // Auto-advance after 0.6s (except last question)
+        if !isLastQuestion {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                 withAnimation {
                     currentQuestion += 1
                 }

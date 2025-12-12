@@ -16,21 +16,23 @@ class TaskService: ObservableObject {
     }
 
     private func loadTasksFromBundle() {
-        guard let url = Bundle.main.url(forResource: "Tasks", withExtension: "json"),
-              let data = try? Data(contentsOf: url) else {
-            print("Failed to load Tasks.json")
+        guard let url = Bundle.main.url(forResource: "Tasks", withExtension: "json") else {
+            print("❌ Tasks.json not found in bundle")
             return
         }
 
         do {
+            let data = try Data(contentsOf: url)
             let decoded = try JSONDecoder().decode(TasksContainer.self, from: data)
             self.allTasks = decoded.tasks
+            print("✅ Loaded \(decoded.tasks.count) tasks")
         } catch {
-            print("Failed to decode tasks: \(error)")
+            print("❌ Failed to decode tasks: \(error)")
         }
     }
 
     private struct TasksContainer: Codable {
+        let version: String?
         let tasks: [RecoveryTask]
     }
 
@@ -109,5 +111,12 @@ class TaskService: ObservableObject {
 
     var allCompleted: Bool {
         dailyTasks.allSatisfy { $0.isCompleted }
+    }
+
+    func addBonusTask() {
+        let currentIds = Set(dailyTasks.map { $0.task.id })
+        let available = allTasks.filter { !currentIds.contains($0.id) }
+        guard let bonus = available.randomElement() else { return }
+        dailyTasks.append(DailyTask(task: bonus))
     }
 }

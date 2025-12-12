@@ -55,6 +55,23 @@ struct TaskContent: Codable {
     let multiSelect: Bool?
     let maxSelect: Int?
     let exactSelect: Int?
+    // Additional fields from JSON
+    let phases: [BreathingPhase]?
+    let freeform: Bool?
+    let backgroundSound: String?
+    let guided: Bool?
+    let sections: [String]?
+    let checkIn: CheckInConfig?
+}
+
+struct BreathingPhase: Codable {
+    let name: String
+    let duration: Int
+}
+
+struct CheckInConfig: Codable {
+    let question: String?
+    let options: [String]?
 }
 
 struct SliderConfig: Codable {
@@ -64,11 +81,14 @@ struct SliderConfig: Codable {
     let minLabel: String?
     let maxLabel: String?
     let options: [String]?
+    let type: String?
 }
 
 struct FollowUpConfig: Codable {
     let question: String?
     let options: [String]?
+    let condition: String?
+    let message: String?
 }
 
 struct RecoveryTask: Codable, Identifiable {
@@ -80,6 +100,7 @@ struct RecoveryTask: Codable, Identifiable {
     let stardust: Int
     let duration: Int?
     let content: TaskContent?
+    let evidence: String?
 
     var stardustReward: Int { stardust }
 
