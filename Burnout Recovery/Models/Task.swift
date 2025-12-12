@@ -89,7 +89,7 @@ struct RecoveryTask: Codable, Identifiable {
     }
 }
 
-struct DailyTask: Identifiable {
+struct DailyTask: Identifiable, Hashable {
     let id: String
     let task: RecoveryTask
     var isCompleted: Bool
@@ -104,5 +104,13 @@ struct DailyTask: Identifiable {
         self.completedAt = nil
         self.selectedOptionIds = []
         self.note = nil
+    }
+
+    static func == (lhs: DailyTask, rhs: DailyTask) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
