@@ -9,6 +9,7 @@ class TaskService: ObservableObject {
 
     private let lastGeneratedKey = "ember_last_generated"
     private let dailyTaskIdsKey = "ember_daily_task_ids"
+    private let completedTaskIdsKey = "ember_completed_daily_ids"
 
     private init() {
         loadTasksFromBundle()
@@ -43,9 +44,16 @@ class TaskService: ObservableObject {
         if let lastGenerated = UserDefaults.standard.object(forKey: lastGeneratedKey) as? Date,
            calendar.isDate(lastGenerated, inSameDayAs: today),
            let savedIds = UserDefaults.standard.array(forKey: dailyTaskIdsKey) as? [String] {
+
+            let completedIds = Set(UserDefaults.standard.array(forKey: completedTaskIdsKey) as? [String] ?? [])
+
             dailyTasks = savedIds.compactMap { id in
                 guard let task = allTasks.first(where: { $0.id == id }) else { return nil }
-                return DailyTask(task: task)
+                var dailyTask = DailyTask(task: task)
+                if completedIds.contains(id) {
+                    dailyTask.isCompleted = true
+                }
+                return dailyTask
             }
             if !dailyTasks.isEmpty { return }
         }
@@ -83,6 +91,7 @@ class TaskService: ObservableObject {
 
         UserDefaults.standard.set(Date(), forKey: lastGeneratedKey)
         UserDefaults.standard.set(selectedTasks.map { $0.id }, forKey: dailyTaskIdsKey)
+        UserDefaults.standard.removeObject(forKey: completedTaskIdsKey)
     }
 
     func completeTask(_ dailyTask: DailyTask, selectedOptions: [String], note: String?) {
@@ -92,6 +101,11 @@ class TaskService: ObservableObject {
         dailyTasks[index].completedAt = Date()
         dailyTasks[index].selectedOptionIds = selectedOptions
         dailyTasks[index].note = note
+
+        // Save completed task ID
+        var completedIds = UserDefaults.standard.array(forKey: completedTaskIdsKey) as? [String] ?? []
+        completedIds.append(dailyTask.task.id)
+        UserDefaults.standard.set(completedIds, forKey: completedTaskIdsKey)
 
         let reward = dailyTask.task.stardustReward
         UserService.shared.addStardust(reward)
