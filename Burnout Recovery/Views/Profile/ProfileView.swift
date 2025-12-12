@@ -6,25 +6,19 @@ struct ProfileView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color.cosmosBackground
-                    .ignoresSafeArea()
-
-                ScrollView {
-                    VStack(spacing: 24) {
-                        ProfileHeader(user: userService.user)
-                        StatsGrid(user: userService.user)
-                            .padding(.horizontal, 20)
-                        BadgesSection(earnedBadgeIds: userService.user.earnedBadgeIds)
-                            .padding(.horizontal, 20)
-
-                        // Spacer for tab bar
-                        Color.clear.frame(height: 80)
-                    }
-                    .padding(.top, 20)
+            ScrollView {
+                VStack(spacing: 24) {
+                    ProfileHeader(user: userService.user)
+                    StatsGrid(user: userService.user)
+                        .padding(.horizontal, 20)
+                    BadgesSection(earnedBadgeIds: userService.user.earnedBadgeIds)
+                        .padding(.horizontal, 20)
                 }
-                .scrollIndicators(.visible)
+                .padding(.top, 20)
+                .padding(.bottom, 40)
             }
+            .scrollIndicators(.visible)
+            .background(Color.cosmosBackground)
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
