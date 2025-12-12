@@ -5,8 +5,18 @@ struct ChoiceButton: View {
     let isSelected: Bool
     let action: () -> Void
 
+    @State private var isPressed = false
+
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                isPressed = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                isPressed = false
+            }
+            action()
+        }) {
             HStack {
                 Text(text)
                     .font(.body)
@@ -15,6 +25,7 @@ struct ChoiceButton: View {
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.cosmosBackground)
+                        .transition(.scale.combined(with: .opacity))
                 }
             }
             .padding()
@@ -26,8 +37,10 @@ struct ChoiceButton: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.softLavender.opacity(0.3), lineWidth: 1)
             )
+            .scaleEffect(isPressed ? 1.03 : 1.0)
         }
         .buttonStyle(PlainButtonStyle())
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
     }
 }
 
