@@ -10,31 +10,31 @@
 
 | Task | Status | Notes |
 |------|--------|-------|
-| 1.1 Create Xcode Project Structure | [ ] | |
-| 1.2 Define Color Extensions | [ ] | |
-| 1.3 Create User Model | [ ] | |
-| 1.4 Create Task Model | [ ] | |
-| 1.5 Create Badge Model | [ ] | |
-| 1.6 Create Progress Model | [ ] | |
+| 1.1 Create Xcode Project Structure | [x] | Folders created |
+| 1.2 Define Color Extensions | [x] | Resources/Colors.swift |
+| 1.3 Create User Model | [x] | Models/User.swift |
+| 1.4 Create Task Model | [x] | Models/Task.swift (adapted to JSON) |
+| 1.5 Create Badge Model | [x] | Models/Badge.swift |
+| 1.6 Create Progress Model | [x] | Models/Progress.swift |
 
 ## Phase 2: Services Layer
 
 | Task | Status | Notes |
 |------|--------|-------|
-| 2.1 Create UserService | [ ] | |
-| 2.2 Create TaskService | [ ] | |
-| 2.3 Create BadgeService | [ ] | |
-| 2.4 Create NotificationService | [ ] | |
+| 2.1 Create UserService | [x] | Services/UserService.swift |
+| 2.2 Create TaskService | [x] | Services/TaskService.swift |
+| 2.3 Create BadgeService | [x] | Services/BadgeService.swift |
+| 2.4 Create NotificationService | [ ] | Skipped for MVP |
 
 ## Phase 3: Reusable Components
 
 | Task | Status | Notes |
 |------|--------|-------|
-| 3.1 Create ChoiceButton Component | [ ] | |
-| 3.2 Create StardustCounter Component | [ ] | |
-| 3.3 Create ProgressBar Component | [ ] | |
-| 3.4 Create StreakBadge Component | [ ] | |
-| 3.5 Create PrimaryButton Component | [ ] | |
+| 3.1 Create ChoiceButton Component | [x] | Components/ChoiceButton.swift |
+| 3.2 Create StardustCounter Component | [x] | Components/StardustCounter.swift |
+| 3.3 Create ProgressBar Component | [x] | Components/ProgressBar.swift |
+| 3.4 Create StreakBadge Component | [x] | In StardustCounter.swift |
+| 3.5 Create PrimaryButton Component | [x] | In ProgressBar.swift |
 
 ## Phase 4: Onboarding Views
 
@@ -86,9 +86,9 @@
 ## Progress Summary
 
 - **Total Tasks:** 22
-- **Completed:** 0
+- **Completed:** 14
 - **In Progress:** 0
-- **Remaining:** 22
+- **Remaining:** 8
 
 ---
 
@@ -97,3 +97,6 @@
 ### Session 1 - 2025-12-12
 - Created implementation plan
 - Created progress tracking file
+- Completed Phase 1: Models
+- Completed Phase 2: Services (except NotificationService)
+- Completed Phase 3: Components
