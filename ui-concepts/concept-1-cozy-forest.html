@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0">
+    <title>Burnout Recovery - Cozy Forest Concept</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-dark: #2D5A3D;
+            --forest-medium: #4A7C59;
+            --forest-light: #8CB369;
+            --cream: #FDF6E3;
+            --warm-orange: #F4A259;
+            --soft-pink: #E8B4B8;
+            --wood-brown: #8B6914;
+            --shadow: rgba(45, 90, 61, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(180deg, #87CEAB 0%, #B8E0C8 50%, #D4EBD8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .phone-frame {
+            width: 390px;
+            min-height: 844px;
+            margin: 20px auto;
+            background: var(--cream);
+            border-radius: 45px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+        }
+
+        /* Decorative elements */
+        .trees {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cpath d='M0 200 L0 150 Q50 100 100 150 L100 200Z' fill='%234A7C59'/%3E%3Cpath d='M80 200 L80 120 Q130 60 180 120 L180 200Z' fill='%232D5A3D'/%3E%3Cpath d='M160 200 L160 140 Q200 90 240 140 L240 200Z' fill='%238CB369'/%3E%3Cpath d='M220 200 L220 100 Q280 40 340 100 L340 200Z' fill='%234A7C59'/%3E%3Cpath d='M300 200 L300 130 Q350 80 400 130 L400 200Z' fill='%232D5A3D'/%3E%3C/svg%3E") no-repeat bottom;
+            background-size: cover;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .floating-leaves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .leaf {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .leaf:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 80%; top: 15%; animation-delay: 1s; }
+        .leaf:nth-child(3) { left: 30%; top: 60%; animation-delay: 2s; }
+        .leaf:nth-child(4) { left: 70%; top: 70%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        /* Header */
+        .header {
+            padding: 60px 24px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mascot {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+            background: var(--forest-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            box-shadow: 0 8px 24px var(--shadow);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .greeting {
+            font-family: 'Baloo 2', cursive;
+            font-size: 28px;
+            color: var(--forest-dark);
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--forest-medium);
+            font-weight: 600;
+        }
+
+        /* Progress bar */
+        .progress-section {
+            padding: 0 24px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--forest-dark);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-container {
+            background: rgba(45, 90, 61, 0.15);
+            border-radius: 12px;
+            height: 24px;
+            padding: 4px;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--forest-light), var(--warm-orange));
+            height: 100%;
+            border-radius: 8px;
+            width: 65%;
+            position: relative;
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar::after {
+            content: '🌱';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--forest-medium);
+            font-weight: 600;
+        }
+
+        /* Quiz Card */
+        .quiz-card {
+            margin: 0 24px;
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 32px var(--shadow);
+            position: relative;
+            z-index: 2;
+        }
+
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--warm-orange), #F4C459);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .quiz-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 18px;
+            color: var(--forest-dark);
+        }
+
+        .quiz-step {
+            font-size: 13px;
+            color: var(--forest-medium);
+        }
+
+        .question {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--forest-dark);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .answer-btn {
+            background: var(--cream);
+            border: 3px solid transparent;
+            border-radius: 16px;
+            padding: 16px 20px;
+            text-align: left;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--forest-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .answer-btn:hover {
+            border-color: var(--forest-light);
+            transform: translateX(8px);
+        }
+
+        .answer-btn.selected {
+            background: var(--forest-light);
+            color: white;
+            border-color: var(--forest-dark);
+        }
+
+        .answer-emoji {
+            font-size: 24px;
+        }
+
+        /* Daily Tasks */
+        .tasks-section {
+            margin: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 20px;
+            color: var(--forest-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .task-card {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 16px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .task-card:hover {
+            transform: scale(1.02);
+        }
+
+        .task-card.completed {
+            background: linear-gradient(135deg, var(--forest-light), var(--forest-medium));
+        }
+
+        .task-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--cream);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .task-card.completed .task-icon {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-weight: 700;
+            color: var(--forest-dark);
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .task-card.completed .task-name {
+            color: white;
+        }
+
+        .task-xp {
+            font-size: 13px;
+            color: var(--forest-medium);
+            font-weight: 600;
+        }
+
+        .task-card.completed .task-xp {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .check-circle {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--forest-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: transparent;
+        }
+
+        .task-card.completed .check-circle {
+            background: white;
+            border-color: white;
+            color: var(--forest-dark);
+        }
+
+        /* Celebration overlay */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 90, 61, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .celebration.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .celebration-content {
+            text-align: center;
+            color: white;
+        }
+
+        .celebration-emoji {
+            font-size: 80px;
+            animation: celebrateBounce 0.5s ease infinite;
+        }
+
+        @keyframes celebrateBounce {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
+        }
+
+        .celebration-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 32px;
+            margin: 20px 0 10px;
+        }
+
+        .celebration-xp {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--warm-orange);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--warm-orange);
+            animation: confettiFall 1s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(400px) rotate(720deg); opacity: 0; }
+        }
+
+        /* Concept label */
+        .concept-label {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--forest-dark);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 1000;
+        }
+
+        .concept-label span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="concept-label">
+        🌲 Concept 1: Cozy Forest
+        <span>Meleg, barátságos, természetközeli</span>
+    </div>
+
+    <div class="phone-frame">
+        <div class="floating-leaves">
+            <span class="leaf">🍃</span>
+            <span class="leaf">🌿</span>
+            <span class="leaf">🍂</span>
+            <span class="leaf">🌱</span>
+        </div>
+
+        <div class="header">
+            <div class="mascot">🦊</div>
+            <h1 class="greeting">Szia, Petra! 🌸</h1>
+            <p class="subtitle">Ma is itt vagyok veled</p>
+        </div>
+
+        <div class="progress-section">
+            <div class="level-badge">
+                <span>🌿</span>
+                <span>Level 4 - Erdei Kalandor</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="progress-text">
+                <span>650 XP</span>
+                <span>1000 XP a következő szintig</span>
+            </div>
+        </div>
+
+        <div class="quiz-card">
+            <div class="quiz-header">
+                <div class="quiz-icon">📝</div>
+                <div>
+                    <div class="quiz-title">Napi Check-in</div>
+                    <div class="quiz-step">3/9 kérdés</div>
+                </div>
+            </div>
+            <p class="question">Mennyire érezted magad kimerültnek az elmúlt héten?</p>
+            <div class="answer-options">
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">😊</span>
+                    <span>Egyáltalán nem - tele vagyok energiával!</span>
+                </button>
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">🙂</span>
+                    <span>Kicsit - de kezelhető</span>
+                </button>
+                <button class="answer-btn selected" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">😔</span>
+                    <span>Elég fáradt vagyok mostanában</span>
+                </button>
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">😩</span>
+                    <span>Nagyon kimerült - alig bírom</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="tasks-section">
+            <h2 class="section-title">🎯 Mai Feladatok</h2>
+
+            <div class="task-card completed" onclick="celebrate()">
+                <div class="task-icon">🧘</div>
+                <div class="task-info">
+                    <div class="task-name">5 perc légzőgyakorlat</div>
+                    <div class="task-xp">+50 XP ✨ Kész!</div>
+                </div>
+                <div class="check-circle">✓</div>
+            </div>
+
+            <div class="task-card" onclick="celebrate()">
+                <div class="task-icon">📔</div>
+                <div class="task-info">
+                    <div class="task-name">Hála napló - 3 dolog</div>
+                    <div class="task-xp">+75 XP</div>
+                </div>
+                <div class="check-circle"></div>
+            </div>
+
+            <div class="task-card">
+                <div class="task-icon">🚶</div>
+                <div class="task-info">
+                    <div class="task-name">10 perces séta</div>
+                    <div class="task-xp">+60 XP</div>
+                </div>
+                <div class="check-circle"></div>
+            </div>
+        </div>
+
+        <div class="trees"></div>
+    </div>
+
+    <div class="celebration" id="celebration" onclick="this.classList.remove('show')">
+        <div class="celebration-content">
+            <div class="celebration-emoji">🎉</div>
+            <h2 class="celebration-title">Szuper vagy!</h2>
+            <p class="celebration-xp">+75 XP</p>
+        </div>
+    </div>
+
+    <script>
+        function selectAnswer(btn) {
+            document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function celebrate() {
+            const cel = document.getElementById('celebration');
+            cel.classList.add('show');
+
+            // Add confetti
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.background = ['#F4A259', '#8CB369', '#E8B4B8', '#FDF6E3'][Math.floor(Math.random() * 4)];
+                cel.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 1500);
+            }
+
+            setTimeout(() => cel.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+</html>

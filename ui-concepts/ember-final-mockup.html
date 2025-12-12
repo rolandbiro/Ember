@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0">
+    <title>Ember — Burnout Recovery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cosmos-bg: #0B0B1A;
+            --cosmos-card: #151525;
+            --cosmos-purple: #1E1B4B;
+            --soft-lavender: #A78BFA;
+            --soft-pink: #F0ABFC;
+            --soft-blue: #7DD3FC;
+            --soft-peach: #FED7AA;
+            --ember-orange: #FB923C;
+            --ember-glow: #F97316;
+            --star-white: #F5F5F7;
+            --muted: rgba(255,255,255,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(180deg, #0B0B1A 0%, #1E1B4B 100%);
+            min-height: 100vh;
+            display: flex;
+            gap: 40px;
+            padding: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .screen-label {
+            text-align: center;
+            color: var(--soft-lavender);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            background: var(--cosmos-bg);
+            border-radius: 45px;
+            overflow: hidden;
+            position: relative;
+            box-shadow:
+                0 0 0 1px rgba(167, 139, 250, 0.2),
+                0 0 60px rgba(167, 139, 250, 0.15),
+                0 25px 80px rgba(0,0,0,0.5);
+        }
+
+        /* Stars */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star:nth-child(1) { left: 10%; top: 8%; animation-delay: 0s; }
+        .star:nth-child(2) { left: 25%; top: 15%; animation-delay: 0.5s; width: 3px; height: 3px; }
+        .star:nth-child(3) { left: 85%; top: 12%; animation-delay: 1s; }
+        .star:nth-child(4) { left: 65%; top: 22%; animation-delay: 1.5s; }
+        .star:nth-child(5) { left: 92%; top: 35%; animation-delay: 2s; }
+        .star:nth-child(6) { left: 8%; top: 45%; animation-delay: 0.3s; width: 3px; height: 3px; }
+        .star:nth-child(7) { left: 50%; top: 8%; animation-delay: 0.8s; }
+        .star:nth-child(8) { left: 75%; top: 55%; animation-delay: 1.2s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .ember-logo {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 50% 60%, var(--ember-orange) 0%, var(--ember-glow) 40%, transparent 70%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin-bottom: 32px;
+            animation: emberGlow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .ember-logo::before {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: emberPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes emberGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        @keyframes emberPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .app-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--star-white);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .app-tagline {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 48px;
+        }
+
+        .welcome-text {
+            font-size: 18px;
+            color: var(--star-white);
+            line-height: 1.6;
+            margin-bottom: 48px;
+            max-width: 300px;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, var(--ember-orange), var(--ember-glow));
+            color: white;
+            border: none;
+            padding: 18px 48px;
+            border-radius: 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(251, 146, 60, 0.3);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(251, 146, 60, 0.4);
+        }
+
+        /* Home Screen */
+        .home-screen {
+            height: 100%;
+            padding: 60px 24px 24px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .home-header {
+            margin-bottom: 24px;
+        }
+
+        .greeting {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .user-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--star-white);
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(251, 146, 60, 0.15);
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            padding: 8px 14px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        .streak-badge .flame {
+            font-size: 16px;
+        }
+
+        .streak-badge .count {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ember-orange);
+        }
+
+        .streak-badge .label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* Progress Card */
+        .progress-card {
+            background: var(--cosmos-card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(167, 139, 250, 0.1);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .level-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .level-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--soft-lavender), var(--soft-pink));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .level-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--star-white);
+        }
+
+        .level-number {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .stardust-count {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--soft-peach);
+        }
+
+        .progress-bar-bg {
+            background: rgba(167, 139, 250, 0.15);
+            border-radius: 8px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--soft-lavender), var(--soft-pink));
+            height: 100%;
+            width: 65%;
+            border-radius: 8px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Today's Tasks */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--star-white);
+        }
+
+        .task-count {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .task-card {
+            background: var(--cosmos-card);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(167, 139, 250, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .task-card:hover {
+            border-color: rgba(167, 139, 250, 0.3);
+            transform: translateX(4px);
+        }
+
+        .task-card.completed {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(125, 211, 252, 0.1));
+            border-color: rgba(167, 139, 250, 0.3);
+        }
+
+        .task-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .task-icon.breathe { background: rgba(125, 211, 252, 0.2); }
+        .task-icon.reflect { background: rgba(167, 139, 250, 0.2); }
+        .task-icon.gratitude { background: rgba(240, 171, 252, 0.2); }
+        .task-icon.move { background: rgba(254, 215, 170, 0.2); }
+        .task-icon.mindful { background: rgba(167, 243, 208, 0.2); }
+
+        .task-card.completed .task-icon {
+            background: linear-gradient(135deg, var(--soft-lavender), var(--soft-blue));
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--star-white);
+            margin-bottom: 4px;
+        }
+
+        .task-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .task-stardust {
+            color: var(--soft-peach);
+            font-weight: 500;
+        }
+
+        .task-card.completed .task-stardust {
+            color: var(--soft-blue);
+        }
+
+        .task-check {
+            width: 26px;
+            height: 26px;
+            border: 2px solid rgba(167, 139, 250, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: transparent;
+        }
+
+        .task-card.completed .task-check {
+            background: var(--soft-lavender);
+            border-color: var(--soft-lavender);
+            color: var(--cosmos-bg);
+        }
+
+        /* Task Detail Screen */
+        .task-screen {
+            height: 100%;
+            padding: 60px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--soft-lavender);
+            font-size: 15px;
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 24px;
+        }
+
+        .task-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .task-header .task-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            font-size: 32px;
+        }
+
+        .task-header .task-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--star-white);
+            margin-bottom: 8px;
+        }
+
+        .task-header .task-desc {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--star-white);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .choice-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            color: var(--star-white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: block;
+            width: 100%;
+        }
+
+        .choice-btn:hover {
+            background: rgba(167, 139, 250, 0.1);
+            border-color: var(--soft-lavender);
+        }
+
+        .choice-btn.selected {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(240, 171, 252, 0.15));
+            border-color: var(--soft-lavender);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
+        }
+
+        .note-field {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 20px;
+            color: var(--star-white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            width: 100%;
+            min-height: 100px;
+            resize: none;
+        }
+
+        .note-field::placeholder {
+            color: var(--muted);
+        }
+
+        .complete-btn {
+            margin-top: auto;
+            background: linear-gradient(135deg, var(--soft-lavender), var(--soft-pink));
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Celebration Overlay */
+        .celebration-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(11, 11, 26, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .celebration-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .celebration-content {
+            text-align: center;
+        }
+
+        .celebration-emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: celebratePop 0.5s ease-out;
+        }
+
+        @keyframes celebratePop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .celebration-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--star-white);
+            margin-bottom: 8px;
+        }
+
+        .celebration-subtitle {
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .celebration-reward {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(254, 215, 170, 0.15);
+            border: 1px solid rgba(254, 215, 170, 0.3);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--soft-peach);
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Screen navigation hint */
+        .screen-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="screen-wrapper">
+        <div class="screen-label">Welcome Screen</div>
+        <div class="phone-frame">
+            <div class="stars">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+            </div>
+            <div class="welcome-screen">
+                <div class="ember-logo">🔥</div>
+                <h1 class="app-title">Ember</h1>
+                <p class="app-tagline">Burnout Recovery</p>
+                <p class="welcome-text">Your spark is still there. Let's nurture it back to life, one day at a time.</p>
+                <button class="primary-btn">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Screen -->
+    <div class="screen-wrapper">
+        <div class="screen-label">Home Screen</div>
+        <div class="phone-frame">
+            <div class="stars">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+            </div>
+            <div class="home-screen">
+                <div class="home-header">
+                    <p class="greeting">Good evening,</p>
+                    <h1 class="user-name">Sarah</h1>
+                    <div class="streak-badge">
+                        <span class="flame">🔥</span>
+                        <span class="count">14</span>
+                        <span class="label">day streak</span>
+                    </div>
+                </div>
+
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <div class="level-info">
+                            <div class="level-icon">✨</div>
+                            <div>
+                                <div class="level-name">Glow</div>
+                                <div class="level-number">Level 3</div>
+                            </div>
+                        </div>
+                        <div class="stardust-count">
+                            <span>⭐</span>
+                            <span>580</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>580 / 1000 stardust</span>
+                        <span>Level 4</span>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">Today's Tasks</h2>
+                    <span class="task-count">1 of 2 done</span>
+                </div>
+
+                <div class="task-card completed">
+                    <div class="task-icon breathe">🌬️</div>
+                    <div class="task-info">
+                        <div class="task-name">4-7-8 Breathing</div>
+                        <div class="task-meta">
+                            <span class="task-stardust">+50 ⭐ earned</span>
+                        </div>
+                    </div>
+                    <div class="task-check">✓</div>
+                </div>
+
+                <div class="task-card">
+                    <div class="task-icon gratitude">🌸</div>
+                    <div class="task-info">
+                        <div class="task-name">Three Good Things</div>
+                        <div class="task-meta">
+                            <span>~3 min</span>
+                            <span class="task-stardust">+60 ⭐</span>
+                        </div>
+                    </div>
+                    <div class="task-check"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Detail Screen -->
+    <div class="screen-wrapper">
+        <div class="screen-label">Task Screen</div>
+        <div class="phone-frame">
+            <div class="stars">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+            </div>
+            <div class="task-screen">
+                <button class="back-btn">← Back</button>
+
+                <div class="task-header">
+                    <div class="task-icon gratitude">🌸</div>
+                    <h1 class="task-title">Three Good Things</h1>
+                    <p class="task-desc">The classic gratitude practice. Small moments matter.</p>
+                </div>
+
+                <p class="question-text">Pick three good things from today (big or small):</p>
+
+                <button class="choice-btn selected">A moment of peace</button>
+                <button class="choice-btn selected">Good food or drink</button>
+                <button class="choice-btn">A kind interaction</button>
+                <button class="choice-btn selected">Something I accomplished</button>
+                <button class="choice-btn">Nice weather</button>
+
+                <textarea class="note-field" placeholder="Want to add a note? (optional)"></textarea>
+
+                <button class="complete-btn" onclick="showCelebration()">Complete Task</button>
+            </div>
+
+            <div class="celebration-overlay" id="celebration">
+                <div class="celebration-content">
+                    <div class="celebration-emoji">✨</div>
+                    <h2 class="celebration-title">Beautiful!</h2>
+                    <p class="celebration-subtitle">Gratitude rewires your brain for positivity</p>
+                    <div class="celebration-reward">
+                        <span>+60</span>
+                        <span>⭐</span>
+                        <span>stardust</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCelebration() {
+            const cel = document.getElementById('celebration');
+            cel.classList.add('show');
+
+            // Add floating particles
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = 30 + Math.random() * 40 + '%';
+                    particle.style.bottom = '40%';
+                    particle.style.background = ['#A78BFA', '#F0ABFC', '#FED7AA', '#7DD3FC'][Math.floor(Math.random() * 4)];
+                    particle.style.animation = 'particleFloat 1.5s ease-out forwards';
+                    cel.appendChild(particle);
+                    setTimeout(() => particle.remove(), 1500);
+                }, i * 100);
+            }
+
+            setTimeout(() => cel.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>

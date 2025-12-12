@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0">
+    <title>Burnout Recovery - Soft Cosmos Concept</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cosmos-dark: #0B0B1A;
+            --cosmos-purple: #1E1B4B;
+            --soft-lavender: #A78BFA;
+            --soft-pink: #F0ABFC;
+            --soft-blue: #7DD3FC;
+            --soft-peach: #FED7AA;
+            --star-white: #F5F5F7;
+            --glow: rgba(167, 139, 250, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(180deg, #0B0B1A 0%, #1E1B4B 100%);
+            min-height: 100vh;
+        }
+
+        .phone-frame {
+            width: 390px;
+            min-height: 844px;
+            margin: 20px auto;
+            background: linear-gradient(180deg, #0B0B1A 0%, #1A1744 50%, #2D2564 100%);
+            border-radius: 45px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 80px rgba(167, 139, 250, 0.2), 0 25px 80px rgba(0,0,0,0.5);
+        }
+
+        /* Stars background */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star:nth-child(1) { left: 10%; top: 5%; animation-delay: 0s; }
+        .star:nth-child(2) { left: 25%; top: 12%; animation-delay: 0.5s; width: 3px; height: 3px; }
+        .star:nth-child(3) { left: 80%; top: 8%; animation-delay: 1s; }
+        .star:nth-child(4) { left: 60%; top: 18%; animation-delay: 1.5s; }
+        .star:nth-child(5) { left: 90%; top: 25%; animation-delay: 2s; width: 3px; height: 3px; }
+        .star:nth-child(6) { left: 5%; top: 35%; animation-delay: 0.3s; }
+        .star:nth-child(7) { left: 45%; top: 5%; animation-delay: 0.8s; }
+        .star:nth-child(8) { left: 70%; top: 45%; animation-delay: 1.2s; }
+        .star:nth-child(9) { left: 15%; top: 55%; animation-delay: 1.8s; width: 3px; height: 3px; }
+        .star:nth-child(10) { left: 95%; top: 60%; animation-delay: 0.6s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Floating planets */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .planet-1 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--soft-pink), var(--soft-lavender));
+            right: -20px;
+            top: 15%;
+            opacity: 0.6;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .planet-2 {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--soft-blue), var(--soft-lavender));
+            left: 10%;
+            top: 40%;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Header */
+        .header {
+            padding: 55px 24px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: radial-gradient(circle, var(--soft-lavender) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glowPulse 3s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .avatar {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--cosmos-purple), #3730A3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            border: 3px solid rgba(167, 139, 250, 0.5);
+        }
+
+        .greeting {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--star-white);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--soft-lavender);
+            font-weight: 400;
+        }
+
+        /* Journey progress */
+        .journey-section {
+            padding: 0 24px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .journey-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .journey-title {
+            font-size: 13px;
+            color: var(--soft-lavender);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .journey-level {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--soft-peach);
+        }
+
+        .journey-path {
+            background: rgba(167, 139, 250, 0.15);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(167, 139, 250, 0.2);
+        }
+
+        .path-visual {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .checkpoint {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(167, 139, 250, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .checkpoint.completed {
+            background: linear-gradient(135deg, var(--soft-lavender), var(--soft-pink));
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        .checkpoint.current {
+            background: var(--cosmos-purple);
+            border: 2px solid var(--soft-lavender);
+            animation: currentPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes currentPulse {
+            0%, 100% { box-shadow: 0 0 0 0 var(--glow); }
+            50% { box-shadow: 0 0 0 8px transparent; }
+        }
+
+        .path-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--soft-lavender), rgba(167, 139, 250, 0.2));
+            margin: 0 8px;
+        }
+
+        .path-line.inactive {
+            background: rgba(167, 139, 250, 0.2);
+        }
+
+        .journey-stats {
+            display: flex;
+            justify-content: space-around;
+            font-size: 12px;
+            color: var(--soft-lavender);
+        }
+
+        .journey-stat {
+            text-align: center;
+        }
+
+        .journey-stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--star-white);
+        }
+
+        /* Quiz card */
+        .quiz-card {
+            margin: 0 24px;
+            background: rgba(30, 27, 75, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--soft-blue), var(--soft-lavender));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .quiz-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--star-white);
+        }
+
+        .quiz-step {
+            font-size: 12px;
+            color: var(--soft-lavender);
+            margin-top: 2px;
+        }
+
+        .question {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--star-white);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .answer-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            border-radius: 14px;
+            padding: 16px 18px;
+            text-align: left;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--star-white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .answer-btn:hover {
+            background: rgba(167, 139, 250, 0.15);
+            border-color: var(--soft-lavender);
+            transform: translateX(6px);
+        }
+
+        .answer-btn.selected {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.3), rgba(240, 171, 252, 0.2));
+            border-color: var(--soft-lavender);
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        .answer-emoji {
+            font-size: 22px;
+        }
+
+        /* Tasks section */
+        .tasks-section {
+            margin: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: 13px;
+            color: var(--soft-lavender);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .task-card {
+            background: rgba(30, 27, 75, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(167, 139, 250, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .task-card:hover {
+            background: rgba(30, 27, 75, 0.8);
+            border-color: rgba(167, 139, 250, 0.3);
+            transform: scale(1.02);
+        }
+
+        .task-card.completed {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(125, 211, 252, 0.1));
+            border-color: var(--soft-lavender);
+        }
+
+        .task-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(167, 139, 250, 0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .task-card.completed .task-icon {
+            background: linear-gradient(135deg, var(--soft-lavender), var(--soft-pink));
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-weight: 600;
+            color: var(--star-white);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .task-xp {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--soft-peach);
+        }
+
+        .task-card.completed .task-xp {
+            color: var(--soft-blue);
+        }
+
+        .task-check {
+            width: 28px;
+            height: 28px;
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            font-size: 14px;
+        }
+
+        .task-card.completed .task-check {
+            background: var(--soft-lavender);
+            border-color: var(--soft-lavender);
+            color: var(--cosmos-dark);
+        }
+
+        /* Celebration */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(11, 11, 26, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .celebration.show {
+            display: flex;
+        }
+
+        .celebration-content {
+            text-align: center;
+        }
+
+        .celebration-emoji {
+            font-size: 90px;
+            animation: celebrateFloat 1s ease-out;
+        }
+
+        @keyframes celebrateFloat {
+            0% { transform: scale(0) translateY(50px); opacity: 0; }
+            50% { transform: scale(1.2) translateY(-20px); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .celebration-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--star-white);
+            margin: 20px 0 12px;
+        }
+
+        .celebration-subtitle {
+            font-size: 14px;
+            color: var(--soft-lavender);
+            margin-bottom: 16px;
+        }
+
+        .celebration-xp {
+            font-family: 'Space Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--soft-peach);
+            text-shadow: 0 0 20px rgba(254, 215, 170, 0.5);
+        }
+
+        /* Shooting star animation */
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, white, transparent);
+            animation: shoot 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0); opacity: 1; }
+            100% { transform: translateX(200px) translateY(100px); opacity: 0; }
+        }
+
+        /* Concept label */
+        .concept-label {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--cosmos-purple), #3730A3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            border: 1px solid var(--soft-lavender);
+        }
+
+        .concept-label span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="concept-label">
+        🌙 Concept 3: Soft Cosmos
+        <span>Nyugodt, álmodozó, inspiráló</span>
+    </div>
+
+    <div class="phone-frame">
+        <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+
+        <div class="header">
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="avatar">🌟</div>
+            </div>
+            <h1 class="greeting">Üdv, Petra</h1>
+            <p class="subtitle">Folytasd az utazásod ✨</p>
+        </div>
+
+        <div class="journey-section">
+            <div class="journey-header">
+                <span class="journey-title">Utazásod</span>
+                <span class="journey-level">Csillagközi Utas · Szint 5</span>
+            </div>
+            <div class="journey-path">
+                <div class="path-visual">
+                    <div class="checkpoint completed">🌍</div>
+                    <div class="path-line"></div>
+                    <div class="checkpoint completed">🌙</div>
+                    <div class="path-line"></div>
+                    <div class="checkpoint current">⭐</div>
+                    <div class="path-line inactive"></div>
+                    <div class="checkpoint">🪐</div>
+                    <div class="path-line inactive"></div>
+                    <div class="checkpoint">🌌</div>
+                </div>
+                <div class="journey-stats">
+                    <div class="journey-stat">
+                        <div class="journey-stat-value">14</div>
+                        <div>nap sorozat</div>
+                    </div>
+                    <div class="journey-stat">
+                        <div class="journey-stat-value">580</div>
+                        <div>csillagpor</div>
+                    </div>
+                    <div class="journey-stat">
+                        <div class="journey-stat-value">8</div>
+                        <div>badge</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-card">
+            <div class="quiz-header">
+                <div class="quiz-icon">💫</div>
+                <div>
+                    <div class="quiz-title">Napi Reflexió</div>
+                    <div class="quiz-step">Kérdés 3/9</div>
+                </div>
+            </div>
+            <p class="question">Mennyire érezted magad kimerültnek az elmúlt héten?</p>
+            <div class="answer-options">
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">✨</span>
+                    <span>Tele vagyok energiával</span>
+                </button>
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">🌤️</span>
+                    <span>Kissé fáradt, de jól vagyok</span>
+                </button>
+                <button class="answer-btn selected" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">🌙</span>
+                    <span>Elég kimerültnek érzem magam</span>
+                </button>
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-emoji">🌑</span>
+                    <span>Nagyon nehéz most minden</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="tasks-section">
+            <h2 class="section-title">🌟 Mai Küldetések</h2>
+
+            <div class="task-card completed" onclick="celebrate()">
+                <div class="task-icon">🧘</div>
+                <div class="task-info">
+                    <div class="task-name">Reggeli meditáció</div>
+                    <div class="task-xp">+50 csillagpor ✓</div>
+                </div>
+                <div class="task-check">✓</div>
+            </div>
+
+            <div class="task-card" onclick="celebrate()">
+                <div class="task-icon">📝</div>
+                <div class="task-info">
+                    <div class="task-name">Hála napló</div>
+                    <div class="task-xp">+75 csillagpor</div>
+                </div>
+                <div class="task-check"></div>
+            </div>
+
+            <div class="task-card">
+                <div class="task-icon">🎧</div>
+                <div class="task-info">
+                    <div class="task-name">Relaxáló zene</div>
+                    <div class="task-xp">+40 csillagpor</div>
+                </div>
+                <div class="task-check"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration" onclick="this.classList.remove('show')">
+        <div class="celebration-content">
+            <div class="celebration-emoji">🌟</div>
+            <h2 class="celebration-title">Csodálatos!</h2>
+            <p class="celebration-subtitle">Egy lépéssel közelebb a csillagokhoz</p>
+            <p class="celebration-xp">+75 csillagpor</p>
+        </div>
+    </div>
+
+    <script>
+        function selectAnswer(btn) {
+            document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function celebrate() {
+            const cel = document.getElementById('celebration');
+            cel.classList.add('show');
+
+            // Add shooting stars
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const star = document.createElement('div');
+                    star.className = 'shooting-star';
+                    star.style.left = Math.random() * 50 + '%';
+                    star.style.top = Math.random() * 30 + '%';
+                    cel.appendChild(star);
+                    setTimeout(() => star.remove(), 1000);
+                }, i * 200);
+            }
+
+            setTimeout(() => cel.classList.remove('show'), 2500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0">
+    <title>Burnout Recovery - Neon Arcade Concept</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #FF6B9D;
+            --neon-cyan: #00F5FF;
+            --neon-purple: #B24BF3;
+            --neon-yellow: #FFE66D;
+            --dark-bg: #0D0221;
+            --dark-card: #1A0A2E;
+            --glow-pink: 0 0 20px rgba(255, 107, 157, 0.5);
+            --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #1a0a2e 0%, #16213e 50%, #0f0f23 100%);
+            min-height: 100vh;
+        }
+
+        .phone-frame {
+            width: 390px;
+            min-height: 844px;
+            margin: 20px auto;
+            background: var(--dark-bg);
+            border-radius: 45px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 60px rgba(178, 75, 243, 0.3), 0 25px 80px rgba(0,0,0,0.5);
+            border: 2px solid rgba(178, 75, 243, 0.3);
+        }
+
+        /* Animated background grid */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(178, 75, 243, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(178, 75, 243, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(30px); }
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Header */
+        .header {
+            padding: 50px 24px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .player-avatar {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            box-shadow: var(--glow-pink);
+            animation: pulse 2s ease-in-out infinite;
+            border: 3px solid var(--neon-cyan);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: var(--glow-pink); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 157, 0.8); }
+        }
+
+        .player-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .player-title {
+            font-size: 13px;
+            color: var(--neon-pink);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            padding: 16px 24px;
+            margin: 0 24px 20px;
+            background: var(--dark-card);
+            border-radius: 16px;
+            border: 2px solid var(--neon-purple);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px rgba(255, 230, 109, 0.5);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Level progress */
+        .level-section {
+            padding: 0 24px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .level-badge {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            color: var(--neon-pink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .xp-counter {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--neon-cyan);
+        }
+
+        .xp-bar-container {
+            background: rgba(178, 75, 243, 0.2);
+            border-radius: 10px;
+            height: 20px;
+            padding: 3px;
+            border: 2px solid var(--neon-purple);
+        }
+
+        .xp-bar {
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+            height: 100%;
+            border-radius: 6px;
+            width: 72%;
+            position: relative;
+            animation: xpGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes xpGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        /* Quiz card */
+        .quiz-card {
+            margin: 0 24px;
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 24px;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            position: relative;
+            z-index: 2;
+        }
+
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .quiz-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: white;
+            line-height: 1.5;
+        }
+
+        .quiz-progress {
+            font-size: 12px;
+            color: var(--neon-yellow);
+            margin-top: 4px;
+        }
+
+        .question {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .answer-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            text-align: left;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .answer-btn:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 245, 255, 0.1);
+            transform: translateX(8px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .answer-btn.selected {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            border-color: var(--neon-pink);
+            box-shadow: var(--glow-pink);
+        }
+
+        .answer-key {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--neon-cyan);
+            background: rgba(0, 245, 255, 0.2);
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        .answer-btn.selected .answer-key {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        /* Daily quests */
+        .quests-section {
+            margin: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            color: var(--neon-yellow);
+            margin-bottom: 16px;
+            text-shadow: 0 0 10px rgba(255, 230, 109, 0.5);
+        }
+
+        .quest-card {
+            background: var(--dark-card);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quest-card:hover {
+            border-color: var(--neon-purple);
+            transform: scale(1.02);
+        }
+
+        .quest-card.completed {
+            border-color: var(--neon-cyan);
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(178, 75, 243, 0.1));
+        }
+
+        .quest-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 107, 157, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .quest-card.completed .quest-icon {
+            background: rgba(0, 245, 255, 0.3);
+        }
+
+        .quest-info {
+            flex: 1;
+        }
+
+        .quest-name {
+            font-weight: 700;
+            color: white;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .quest-reward {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            color: var(--neon-yellow);
+        }
+
+        .quest-card.completed .quest-reward {
+            color: var(--neon-cyan);
+        }
+
+        .quest-status {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quest-card.completed .quest-status {
+            background: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            color: var(--dark-bg);
+            font-weight: 900;
+        }
+
+        /* Celebration overlay */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 2, 33, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .celebration.show {
+            display: flex;
+        }
+
+        .celebration-content {
+            text-align: center;
+        }
+
+        .celebration-emoji {
+            font-size: 100px;
+            animation: celebrateSpin 0.5s ease-out;
+        }
+
+        @keyframes celebrateSpin {
+            0% { transform: scale(0) rotate(-180deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .celebration-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+            margin: 24px 0 16px;
+            animation: textGlow 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 20px rgba(0, 245, 255, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(0, 245, 255, 1), 0 0 60px rgba(0, 245, 255, 0.5); }
+        }
+
+        .celebration-xp {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px rgba(255, 230, 109, 0.8);
+        }
+
+        /* Neon particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: particleFly 1s ease-out forwards;
+        }
+
+        @keyframes particleFly {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Concept label */
+        .concept-label {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 1000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            line-height: 1.6;
+        }
+
+        .concept-label span {
+            display: block;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="concept-label">
+        🕹️ Concept 2: NEON ARCADE
+        <span>Energikus, retro játékos, motiváló</span>
+    </div>
+
+    <div class="phone-frame">
+        <div class="grid-bg"></div>
+        <div class="scanlines"></div>
+
+        <div class="header">
+            <div class="player-avatar">👾</div>
+            <h1 class="player-name">PLAYER_PETRA</h1>
+            <p class="player-title">⚡ Recovery Warrior ⚡</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Streak 🔥</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">847</div>
+                <div class="stat-label">Total XP</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Badges</div>
+            </div>
+        </div>
+
+        <div class="level-section">
+            <div class="level-header">
+                <div class="level-badge">
+                    <span>🏆</span>
+                    <span>LVL 7</span>
+                </div>
+                <div class="xp-counter">720/1000 XP</div>
+            </div>
+            <div class="xp-bar-container">
+                <div class="xp-bar"></div>
+            </div>
+        </div>
+
+        <div class="quiz-card">
+            <div class="quiz-header">
+                <div class="quiz-icon">🎮</div>
+                <div>
+                    <div class="quiz-title">DAILY CHECK-IN</div>
+                    <div class="quiz-progress">Mission 3/9</div>
+                </div>
+            </div>
+            <p class="question">Mennyire érezted magad kimerültnek az elmúlt héten?</p>
+            <div class="answer-options">
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-key">A</span>
+                    <span>Tele vagyok energiával! 💪</span>
+                </button>
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-key">B</span>
+                    <span>Kicsit fáradt, de oké</span>
+                </button>
+                <button class="answer-btn selected" onclick="selectAnswer(this)">
+                    <span class="answer-key">C</span>
+                    <span>Elég kimerült vagyok 😔</span>
+                </button>
+                <button class="answer-btn" onclick="selectAnswer(this)">
+                    <span class="answer-key">D</span>
+                    <span>Nagyon nehéz minden</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="quests-section">
+            <h2 class="section-title">⚔️ DAILY QUESTS</h2>
+
+            <div class="quest-card completed" onclick="celebrate()">
+                <div class="quest-icon">🧘</div>
+                <div class="quest-info">
+                    <div class="quest-name">5 perc meditáció</div>
+                    <div class="quest-reward">+50 XP ✓ COMPLETED</div>
+                </div>
+                <div class="quest-status">✓</div>
+            </div>
+
+            <div class="quest-card" onclick="celebrate()">
+                <div class="quest-icon">📝</div>
+                <div class="quest-info">
+                    <div class="quest-name">Hála napló kitöltése</div>
+                    <div class="quest-reward">+75 XP REWARD</div>
+                </div>
+                <div class="quest-status"></div>
+            </div>
+
+            <div class="quest-card">
+                <div class="quest-icon">🎵</div>
+                <div class="quest-info">
+                    <div class="quest-name">Kedvenc zene hallgatása</div>
+                    <div class="quest-reward">+40 XP REWARD</div>
+                </div>
+                <div class="quest-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration" onclick="this.classList.remove('show')">
+        <div class="celebration-content">
+            <div class="celebration-emoji">🏆</div>
+            <h2 class="celebration-title">QUEST COMPLETE!</h2>
+            <p class="celebration-xp">+75 XP</p>
+        </div>
+    </div>
+
+    <script>
+        function selectAnswer(btn) {
+            document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function celebrate() {
+            const cel = document.getElementById('celebration');
+            cel.classList.add('show');
+
+            // Add neon particles
+            const colors = ['#FF6B9D', '#00F5FF', '#B24BF3', '#FFE66D'];
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = '50%';
+                particle.style.top = '40%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
+                particle.style.setProperty('--tx', (Math.random() - 0.5) * 400 + 'px');
+                particle.style.setProperty('--ty', (Math.random() - 0.5) * 400 + 'px');
+                cel.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 1000);
+            }
+
+            setTimeout(() => cel.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+</html>

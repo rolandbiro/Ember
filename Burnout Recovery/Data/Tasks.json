@@ -1,0 +1,1115 @@
+{
+  "version": "1.0",
+  "tasks": [
+    {
+      "id": "breathe_001",
+      "category": "breathe",
+      "title": "4-7-8 Breathing",
+      "description": "A calming technique that activates your parasympathetic nervous system.",
+      "uiType": "timed_activity",
+      "stardust": 50,
+      "duration": 180,
+      "content": {
+        "instruction": "Breathe in for 4 seconds, hold for 7, exhale for 8.",
+        "rounds": 4,
+        "phases": [
+          {"name": "Inhale", "duration": 4},
+          {"name": "Hold", "duration": 7},
+          {"name": "Exhale", "duration": 8}
+        ]
+      },
+      "evidence": "MBSR breathing technique, proven to reduce cortisol levels"
+    },
+    {
+      "id": "breathe_002",
+      "category": "breathe",
+      "title": "Box Breathing",
+      "description": "Used by Navy SEALs to stay calm under pressure.",
+      "uiType": "timed_activity",
+      "stardust": 50,
+      "duration": 120,
+      "content": {
+        "instruction": "Equal counts: inhale, hold, exhale, hold.",
+        "rounds": 4,
+        "phases": [
+          {"name": "Inhale", "duration": 4},
+          {"name": "Hold", "duration": 4},
+          {"name": "Exhale", "duration": 4},
+          {"name": "Hold", "duration": 4}
+        ]
+      },
+      "evidence": "Military stress reduction technique with documented effectiveness"
+    },
+    {
+      "id": "breathe_003",
+      "category": "breathe",
+      "title": "2-Minute Calm",
+      "description": "A quick reset when you're feeling overwhelmed.",
+      "uiType": "timed_activity",
+      "stardust": 40,
+      "duration": 120,
+      "content": {
+        "instruction": "Slow, deep breaths. No counting, just feel.",
+        "rounds": 1,
+        "freeform": true,
+        "backgroundSound": "gentle_waves"
+      },
+      "evidence": "Deep breathing activates vagus nerve, reducing stress response"
+    },
+    {
+      "id": "breathe_004",
+      "category": "breathe",
+      "title": "Body Scan",
+      "description": "Release tension you didn't know you were holding.",
+      "uiType": "timed_activity",
+      "stardust": 60,
+      "duration": 300,
+      "content": {
+        "instruction": "Notice sensations from head to toe, releasing tension as you go.",
+        "guided": true,
+        "sections": ["head", "shoulders", "arms", "chest", "stomach", "legs", "feet"]
+      },
+      "evidence": "MBSR body scan, reduces physical symptoms of stress"
+    },
+    {
+      "id": "breathe_005",
+      "category": "breathe",
+      "title": "Physiological Sigh",
+      "description": "The fastest way to calm down, backed by Stanford research.",
+      "uiType": "timed_activity",
+      "stardust": 30,
+      "duration": 60,
+      "content": {
+        "instruction": "Double inhale through nose, long exhale through mouth.",
+        "rounds": 3,
+        "phases": [
+          {"name": "Inhale", "duration": 2},
+          {"name": "Inhale again", "duration": 1},
+          {"name": "Long exhale", "duration": 6}
+        ]
+      },
+      "evidence": "Stanford neuroscience research by Andrew Huberman"
+    },
+    {
+      "id": "breathe_006",
+      "category": "breathe",
+      "title": "Tension Release",
+      "description": "Actively release the stress stored in your body.",
+      "uiType": "slider_choice",
+      "stardust": 45,
+      "content": {
+        "slider": {
+          "question": "Where do you feel the most tension right now?",
+          "type": "body_map",
+          "options": ["Head/Neck", "Shoulders", "Back", "Chest", "Stomach", "Everywhere"]
+        },
+        "followUp": {
+          "question": "Take 30 seconds to consciously relax that area. How did it go?",
+          "options": [
+            "I feel lighter",
+            "Still tense, but more aware",
+            "Didn't notice much change",
+            "I'll try again later"
+          ]
+        }
+      },
+      "evidence": "Progressive muscle relaxation technique from CBT"
+    },
+    {
+      "id": "breathe_007",
+      "category": "breathe",
+      "title": "Exhale Focus",
+      "description": "Longer exhales tell your body it's safe.",
+      "uiType": "timed_activity",
+      "stardust": 40,
+      "duration": 120,
+      "content": {
+        "instruction": "Inhale naturally, then exhale twice as long.",
+        "rounds": 6,
+        "phases": [
+          {"name": "Inhale", "duration": 3},
+          {"name": "Exhale slowly", "duration": 6}
+        ]
+      },
+      "evidence": "Extended exhale activates parasympathetic response"
+    },
+    {
+      "id": "breathe_008",
+      "category": "breathe",
+      "title": "Breathing Check-In",
+      "description": "How are you breathing right now?",
+      "uiType": "simple_choice",
+      "stardust": 30,
+      "content": {
+        "question": "Before this moment, how were you breathing?",
+        "options": [
+          "Shallow and fast",
+          "Holding my breath without realizing",
+          "Normal, I think",
+          "Already breathing deeply"
+        ],
+        "followUp": "Take three slow breaths right now.",
+        "completion": "Notice the difference? Your breath is always available to reset."
+      },
+      "evidence": "Breath awareness is foundational to mindfulness practice"
+    },
+    {
+      "id": "reflect_001",
+      "category": "reflect",
+      "title": "Energy Audit",
+      "description": "Understand what's draining and charging you.",
+      "uiType": "multi_select",
+      "stardust": 50,
+      "content": {
+        "question": "What drained your energy today?",
+        "multiSelect": true,
+        "options": [
+          "Too many meetings",
+          "Difficult conversations",
+          "Overwhelming workload",
+          "Lack of sleep",
+          "No breaks",
+          "Negative news/media",
+          "Nothing specific, just tired"
+        ],
+        "followUp": {
+          "question": "What gave you energy today?",
+          "options": [
+            "A good conversation",
+            "Completing something",
+            "Fresh air or movement",
+            "Quiet time alone",
+            "Good food",
+            "Nothing yet today"
+          ]
+        }
+      },
+      "evidence": "Energy management from CBT and occupational psychology"
+    },
+    {
+      "id": "reflect_002",
+      "category": "reflect",
+      "title": "Mood Check",
+      "description": "Name it to tame it.",
+      "uiType": "slider_choice",
+      "stardust": 40,
+      "content": {
+        "slider": {
+          "question": "How would you rate your mood right now?",
+          "min": 1,
+          "max": 10,
+          "minLabel": "Struggling",
+          "maxLabel": "Great"
+        },
+        "followUp": {
+          "question": "What word best describes how you feel?",
+          "options": [
+            "Anxious",
+            "Tired",
+            "Frustrated",
+            "Numb",
+            "Okay",
+            "Hopeful",
+            "Content",
+            "Energized"
+          ]
+        }
+      },
+      "evidence": "Affect labeling reduces amygdala activation (UCLA research)"
+    },
+    {
+      "id": "reflect_003",
+      "category": "reflect",
+      "title": "Boundary Check",
+      "description": "Are you protecting your energy?",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "question": "Did you say 'yes' to something today that you wanted to say 'no' to?",
+        "options": [
+          "Yes, and I regret it",
+          "Yes, but it was necessary",
+          "No, I held my boundaries",
+          "I didn't have to make that choice today"
+        ],
+        "followUp": {
+          "condition": "first_two",
+          "message": "It's okay. Boundaries are a practice, not perfection. What would help you next time?",
+          "options": [
+            "Pausing before answering",
+            "Remembering my priorities",
+            "Accepting that 'no' is a complete sentence",
+            "I'm not sure yet"
+          ]
+        }
+      },
+      "evidence": "Boundary-setting is key to burnout prevention (Maslach research)"
+    },
+    {
+      "id": "reflect_004",
+      "category": "reflect",
+      "title": "Day Review",
+      "description": "A quick reflection before you close the day.",
+      "uiType": "choice_with_note",
+      "stardust": 60,
+      "content": {
+        "question": "How would you describe today overall?",
+        "options": [
+          "Productive and fulfilling",
+          "Busy but manageable",
+          "Draining",
+          "Frustrating",
+          "Surprisingly okay",
+          "Just got through it"
+        ],
+        "notePrompt": "Anything you want to remember about today?",
+        "notePlaceholder": "Optional: a moment, thought, or feeling..."
+      },
+      "evidence": "Daily reflection improves self-awareness and emotional regulation"
+    },
+    {
+      "id": "reflect_005",
+      "category": "reflect",
+      "title": "Worry Parking",
+      "description": "Acknowledge worries without letting them drive.",
+      "uiType": "multi_select",
+      "stardust": 50,
+      "content": {
+        "question": "What's taking up mental space right now?",
+        "multiSelect": true,
+        "options": [
+          "Work deadlines",
+          "Relationship concerns",
+          "Health worries",
+          "Financial stress",
+          "Future uncertainty",
+          "Something I said/did",
+          "Things outside my control"
+        ],
+        "followUp": {
+          "question": "Can you do anything about these right now?",
+          "options": [
+            "Yes, I'll take one small action",
+            "No, I'll let them go for now",
+            "I need to think about it more",
+            "I'll write them down and come back later"
+          ]
+        },
+        "completion": "You've acknowledged them. Now give yourself permission to set them aside."
+      },
+      "evidence": "Worry postponement technique from CBT"
+    },
+    {
+      "id": "reflect_006",
+      "category": "reflect",
+      "title": "Self-Compassion Moment",
+      "description": "Treat yourself like you'd treat a good friend.",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "question": "If a friend felt exactly how you feel right now, what would you tell them?",
+        "options": [
+          "\"It's okay to feel this way\"",
+          "\"You're doing better than you think\"",
+          "\"Take a break, you've earned it\"",
+          "\"This won't last forever\"",
+          "\"I'm proud of you for trying\""
+        ],
+        "completion": "Now say that to yourself. You deserve the same kindness."
+      },
+      "evidence": "Self-compassion research by Kristin Neff"
+    },
+    {
+      "id": "reflect_007",
+      "category": "reflect",
+      "title": "Values Alignment",
+      "description": "Are you living according to what matters most?",
+      "uiType": "simple_choice",
+      "stardust": 55,
+      "content": {
+        "question": "What matters most to you right now?",
+        "options": [
+          "Health and wellbeing",
+          "Family and relationships",
+          "Career growth",
+          "Financial security",
+          "Personal freedom",
+          "Making a difference"
+        ],
+        "followUp": {
+          "question": "Did today's actions align with this?",
+          "options": [
+            "Yes, mostly",
+            "Somewhat",
+            "Not really",
+            "I was too busy to think about it"
+          ]
+        },
+        "completion": "No judgment. Awareness is the first step to alignment."
+      },
+      "evidence": "Values clarification from Acceptance and Commitment Therapy (ACT)"
+    },
+    {
+      "id": "reflect_008",
+      "category": "reflect",
+      "title": "Progress Recognition",
+      "description": "You've come further than you think.",
+      "uiType": "choice_with_note",
+      "stardust": 50,
+      "content": {
+        "question": "What's one thing you've handled better recently than you would have before?",
+        "options": [
+          "Managing stress",
+          "Setting boundaries",
+          "Asking for help",
+          "Taking breaks",
+          "Being patient with myself",
+          "I'm not sure"
+        ],
+        "notePrompt": "Want to capture a specific example?",
+        "notePlaceholder": "Optional: what happened..."
+      },
+      "evidence": "Progress monitoring increases self-efficacy (Bandura)"
+    },
+    {
+      "id": "reflect_009",
+      "category": "reflect",
+      "title": "Permission Slip",
+      "description": "What do you need to allow yourself today?",
+      "uiType": "simple_choice",
+      "stardust": 40,
+      "content": {
+        "question": "Give yourself permission to:",
+        "options": [
+          "Rest without guilt",
+          "Not be productive",
+          "Feel whatever I'm feeling",
+          "Say no",
+          "Ask for help",
+          "Not have all the answers"
+        ],
+        "completion": "Permission granted. You don't need anyone else's approval."
+      },
+      "evidence": "Self-permission reduces internal conflict and stress"
+    },
+    {
+      "id": "reflect_010",
+      "category": "reflect",
+      "title": "Tomorrow's Intention",
+      "description": "Set one gentle intention for tomorrow.",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "question": "Tomorrow, I will try to:",
+        "options": [
+          "Start slower",
+          "Take more breaks",
+          "Be kinder to myself",
+          "Focus on one thing at a time",
+          "Protect my energy",
+          "Let go of perfectionism"
+        ],
+        "completion": "One intention is enough. Small shifts create big change over time."
+      },
+      "evidence": "Implementation intentions improve follow-through (Gollwitzer)"
+    },
+    {
+      "id": "reflect_011",
+      "category": "reflect",
+      "title": "Inner Dialogue Check",
+      "description": "What's your inner voice saying?",
+      "uiType": "simple_choice",
+      "stardust": 50,
+      "content": {
+        "question": "How has your self-talk been today?",
+        "options": [
+          "Critical and harsh",
+          "Worried and anxious",
+          "Neutral, not much self-talk",
+          "Encouraging",
+          "Mixed — up and down"
+        ],
+        "followUp": {
+          "condition": "first_two",
+          "question": "Can you reframe one negative thought you had?",
+          "options": [
+            "I'll try: the thought isn't 100% true",
+            "It's hard, but I can see another perspective",
+            "Not right now, but I noticed it",
+            "I need help with this"
+          ]
+        }
+      },
+      "evidence": "Cognitive restructuring from CBT"
+    },
+    {
+      "id": "reflect_012",
+      "category": "reflect",
+      "title": "Needs Check-In",
+      "description": "What does your body or mind need right now?",
+      "uiType": "multi_select",
+      "stardust": 40,
+      "content": {
+        "question": "What do you need most right now?",
+        "multiSelect": true,
+        "maxSelect": 3,
+        "options": [
+          "Rest",
+          "Movement",
+          "Food or water",
+          "Connection with someone",
+          "Alone time",
+          "Fresh air",
+          "Something fun",
+          "To feel heard"
+        ],
+        "completion": "Can you give yourself even one of these in the next hour?"
+      },
+      "evidence": "Basic needs awareness from self-care psychology"
+    },
+    {
+      "id": "gratitude_001",
+      "category": "gratitude",
+      "title": "Three Good Things",
+      "description": "The classic gratitude practice with a twist.",
+      "uiType": "multi_select",
+      "stardust": 60,
+      "content": {
+        "question": "Pick three good things from today (big or small):",
+        "multiSelect": true,
+        "exactSelect": 3,
+        "options": [
+          "A moment of peace",
+          "Something that made me smile",
+          "Good food or drink",
+          "A kind interaction",
+          "Something I accomplished",
+          "Nice weather",
+          "A comfortable moment",
+          "Music or entertainment I enjoyed",
+          "My body working well",
+          "Something I learned"
+        ]
+      },
+      "evidence": "Three Good Things exercise by Martin Seligman, proven to reduce depression"
+    },
+    {
+      "id": "gratitude_002",
+      "category": "gratitude",
+      "title": "Hidden Blessing",
+      "description": "Find the silver lining in a challenge.",
+      "uiType": "choice_with_note",
+      "stardust": 55,
+      "content": {
+        "question": "What's something difficult that taught you something valuable?",
+        "options": [
+          "A mistake that helped me grow",
+          "A conflict that clarified what matters",
+          "A setback that revealed my strength",
+          "A loss that deepened my appreciation",
+          "I can't think of one right now"
+        ],
+        "notePrompt": "What did you learn from it?",
+        "notePlaceholder": "Optional: the lesson..."
+      },
+      "evidence": "Post-traumatic growth research and reframing techniques"
+    },
+    {
+      "id": "gratitude_003",
+      "category": "gratitude",
+      "title": "Appreciate Your Body",
+      "description": "Your body is working hard for you.",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "question": "What's one thing your body did for you today that you can appreciate?",
+        "options": [
+          "Kept me breathing without thinking about it",
+          "Let me taste good food",
+          "Carried me where I needed to go",
+          "Allowed me to hug someone",
+          "Healed while I wasn't paying attention",
+          "Gave me signals about what I need"
+        ],
+        "completion": "Thank you, body. Even when you're tired, you show up."
+      },
+      "evidence": "Body gratitude improves body image and self-care behaviors"
+    },
+    {
+      "id": "gratitude_004",
+      "category": "gratitude",
+      "title": "Simple Pleasures",
+      "description": "The small things that make life good.",
+      "uiType": "multi_select",
+      "stardust": 40,
+      "content": {
+        "question": "What simple pleasure did you enjoy recently?",
+        "multiSelect": true,
+        "options": [
+          "A hot shower",
+          "Fresh sheets",
+          "The first sip of coffee/tea",
+          "Sunlight on my face",
+          "A comfortable chair",
+          "Silence",
+          "A good song",
+          "Clean clothes"
+        ],
+        "completion": "Life is made of these moments. Notice them more often."
+      },
+      "evidence": "Savoring positive experiences extends their emotional benefit"
+    },
+    {
+      "id": "gratitude_005",
+      "category": "gratitude",
+      "title": "Person Appreciation",
+      "description": "Someone in your life deserves recognition.",
+      "uiType": "choice_with_note",
+      "stardust": 50,
+      "content": {
+        "question": "Think of someone who made your life better recently. What did they do?",
+        "options": [
+          "Listened when I needed to talk",
+          "Made me laugh",
+          "Helped without being asked",
+          "Believed in me",
+          "Simply showed up",
+          "Set a good example"
+        ],
+        "notePrompt": "Want to remember who it was?",
+        "notePlaceholder": "Optional: their name or initial...",
+        "completion": "Consider telling them. Expressed gratitude strengthens bonds."
+      },
+      "evidence": "Gratitude expression improves relationships and well-being"
+    },
+    {
+      "id": "gratitude_006",
+      "category": "gratitude",
+      "title": "Ordinary Magic",
+      "description": "What everyday miracle did you witness?",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "question": "What \"ordinary\" thing would you miss if it were gone?",
+        "options": [
+          "Clean water",
+          "A warm home",
+          "The ability to read",
+          "Trees and nature",
+          "The internet",
+          "People who love me"
+        ],
+        "completion": "What's ordinary is actually extraordinary. We just forget."
+      },
+      "evidence": "Perspective-taking increases gratitude and life satisfaction"
+    },
+    {
+      "id": "gratitude_007",
+      "category": "gratitude",
+      "title": "Self-Appreciation",
+      "description": "You deserve gratitude too.",
+      "uiType": "simple_choice",
+      "stardust": 50,
+      "content": {
+        "question": "What's one thing you did recently that you can be proud of?",
+        "options": [
+          "Showed up when it was hard",
+          "Helped someone",
+          "Made a healthy choice",
+          "Kept going despite challenges",
+          "Set a boundary",
+          "Asked for help"
+        ],
+        "completion": "Acknowledging your own efforts matters. You're doing more than you think."
+      },
+      "evidence": "Self-appreciation improves self-esteem and motivation"
+    },
+    {
+      "id": "gratitude_008",
+      "category": "gratitude",
+      "title": "Unexpected Good",
+      "description": "Something good you didn't see coming.",
+      "uiType": "choice_with_note",
+      "stardust": 55,
+      "content": {
+        "question": "What unexpected positive thing happened recently?",
+        "options": [
+          "A kind word from a stranger",
+          "Something worked out better than expected",
+          "An opportunity appeared",
+          "Someone reached out",
+          "I surprised myself",
+          "Can't think of one"
+        ],
+        "notePrompt": "Capture it if you'd like:",
+        "notePlaceholder": "Optional: what happened..."
+      },
+      "evidence": "Noticing positive surprises counters negativity bias"
+    },
+    {
+      "id": "gratitude_009",
+      "category": "gratitude",
+      "title": "Contrast Gratitude",
+      "description": "Appreciate by comparison.",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "question": "Compared to a harder time in your past, what's better now?",
+        "options": [
+          "I have more stability",
+          "I understand myself better",
+          "I have better relationships",
+          "I'm healthier",
+          "I have more resources",
+          "I've grown as a person"
+        ],
+        "completion": "Progress isn't always visible day-to-day. Zoom out sometimes."
+      },
+      "evidence": "Temporal comparison increases appreciation for current circumstances"
+    },
+    {
+      "id": "gratitude_010",
+      "category": "gratitude",
+      "title": "Gratitude for Challenges",
+      "description": "What difficulty are you handling that shows your strength?",
+      "uiType": "simple_choice",
+      "stardust": 50,
+      "content": {
+        "question": "What challenge are you facing that's also helping you grow?",
+        "options": [
+          "A demanding job that's building skills",
+          "A relationship that's teaching patience",
+          "A health issue that's prioritizing self-care",
+          "Financial pressure that's building discipline",
+          "Uncertainty that's building resilience",
+          "I don't see the growth yet"
+        ],
+        "completion": "You're not just surviving. You're being forged."
+      },
+      "evidence": "Growth mindset and benefit-finding in adversity"
+    },
+    {
+      "id": "move_001",
+      "category": "move",
+      "title": "5-Minute Walk",
+      "description": "Movement is medicine. Even a little helps.",
+      "uiType": "timed_activity",
+      "stardust": 50,
+      "duration": 300,
+      "content": {
+        "instruction": "Step outside or walk around your space. No destination needed.",
+        "checkIn": {
+          "question": "How do you feel after moving?",
+          "options": [
+            "More alert",
+            "Calmer",
+            "About the same",
+            "Glad I did it"
+          ]
+        }
+      },
+      "evidence": "Even brief walks improve mood and reduce stress hormones"
+    },
+    {
+      "id": "move_002",
+      "category": "move",
+      "title": "Stretch Break",
+      "description": "Release the tension your body is holding.",
+      "uiType": "simple_choice",
+      "stardust": 40,
+      "content": {
+        "instruction": "Take 2 minutes to stretch however feels good.",
+        "question": "Where did you notice the most tightness?",
+        "options": [
+          "Neck and shoulders",
+          "Back",
+          "Hips",
+          "Legs",
+          "Everywhere",
+          "I actually felt pretty loose"
+        ],
+        "completion": "Your body thanks you. Try to stretch before it screams."
+      },
+      "evidence": "Stretching reduces muscle tension and stress symptoms"
+    },
+    {
+      "id": "move_003",
+      "category": "move",
+      "title": "Fresh Air Moment",
+      "description": "Step outside, even just for a minute.",
+      "uiType": "simple_choice",
+      "stardust": 35,
+      "content": {
+        "instruction": "Go outside (or open a window) and take 5 deep breaths of fresh air.",
+        "question": "What did you notice outside?",
+        "options": [
+          "The temperature",
+          "The sky",
+          "Sounds of life",
+          "A pleasant smell",
+          "I just noticed the air itself",
+          "I couldn't go outside but opened a window"
+        ]
+      },
+      "evidence": "Nature exposure reduces cortisol and blood pressure"
+    },
+    {
+      "id": "move_004",
+      "category": "move",
+      "title": "Dance Break",
+      "description": "Put on one song and move however you want.",
+      "uiType": "simple_choice",
+      "stardust": 50,
+      "content": {
+        "instruction": "Play a song that makes you want to move. No rules, no audience.",
+        "question": "How did that feel?",
+        "options": [
+          "Surprisingly fun",
+          "Awkward but good",
+          "Energizing",
+          "I didn't want to stop",
+          "I did a mini version",
+          "I'll try this another time"
+        ]
+      },
+      "evidence": "Dancing releases endorphins and reduces depression symptoms"
+    },
+    {
+      "id": "move_005",
+      "category": "move",
+      "title": "Posture Reset",
+      "description": "How you hold your body affects how you feel.",
+      "uiType": "simple_choice",
+      "stardust": 30,
+      "content": {
+        "instruction": "Right now: Roll shoulders back, lift chest, unclench jaw.",
+        "question": "What did you notice?",
+        "options": [
+          "I was more hunched than I thought",
+          "My jaw was clenched",
+          "I was holding my breath",
+          "Multiple things needed adjusting",
+          "I was actually okay"
+        ],
+        "completion": "Set a reminder to check your posture a few times a day."
+      },
+      "evidence": "Posture affects mood and energy levels (embodied cognition research)"
+    },
+    {
+      "id": "move_006",
+      "category": "move",
+      "title": "Shake It Off",
+      "description": "Animals shake after stress. You can too.",
+      "uiType": "timed_activity",
+      "stardust": 35,
+      "duration": 60,
+      "content": {
+        "instruction": "Stand up and shake your whole body for 60 seconds. Hands, arms, legs, everything.",
+        "checkIn": {
+          "question": "How do you feel now?",
+          "options": [
+            "Looser",
+            "Silly but lighter",
+            "More awake",
+            "Ready to continue"
+          ]
+        }
+      },
+      "evidence": "TRE (Tension Release Exercise) helps discharge stress from the body"
+    },
+    {
+      "id": "move_007",
+      "category": "move",
+      "title": "Hydration Check",
+      "description": "Your brain needs water to function well.",
+      "uiType": "simple_choice",
+      "stardust": 25,
+      "content": {
+        "question": "When did you last drink water?",
+        "options": [
+          "Just now or recently",
+          "An hour or two ago",
+          "I honestly don't remember",
+          "I've mostly had coffee/tea today"
+        ],
+        "instruction": "Go drink a glass of water right now.",
+        "completion": "Dehydration causes fatigue and poor focus. Keep water nearby."
+      },
+      "evidence": "Even mild dehydration impairs cognitive performance"
+    },
+    {
+      "id": "move_008",
+      "category": "move",
+      "title": "Sunshine Dose",
+      "description": "Natural light regulates your energy and mood.",
+      "uiType": "simple_choice",
+      "stardust": 40,
+      "content": {
+        "instruction": "Spend 5 minutes in natural light (outside is best, window works too).",
+        "question": "How much natural light have you had today?",
+        "options": [
+          "Plenty — been outside",
+          "Some — near windows",
+          "Very little — mostly indoors",
+          "None — it's dark out"
+        ],
+        "completion": "Morning light is especially powerful for energy and sleep quality."
+      },
+      "evidence": "Light exposure regulates circadian rhythm and serotonin production"
+    },
+    {
+      "id": "move_009",
+      "category": "move",
+      "title": "Change of Scenery",
+      "description": "A new environment can shift your mindset.",
+      "uiType": "simple_choice",
+      "stardust": 35,
+      "content": {
+        "instruction": "Move to a different room, chair, or space — even just for 10 minutes.",
+        "question": "How long have you been in the same spot?",
+        "options": [
+          "Less than an hour",
+          "1-2 hours",
+          "Several hours",
+          "All day"
+        ],
+        "completion": "Physical change creates mental change. Move your body, move your mind."
+      },
+      "evidence": "Environmental variety reduces habituation and increases alertness"
+    },
+    {
+      "id": "move_010",
+      "category": "move",
+      "title": "Energy Boost",
+      "description": "Quick movement to raise your energy.",
+      "uiType": "simple_choice",
+      "stardust": 40,
+      "content": {
+        "instruction": "Do 10 jumping jacks, high knees, or march in place.",
+        "question": "How's your energy now compared to before?",
+        "options": [
+          "Noticeably higher",
+          "Slightly better",
+          "About the same",
+          "I'm too tired to tell"
+        ],
+        "completion": "Movement creates energy. Waiting for energy to move is backwards."
+      },
+      "evidence": "Brief exercise immediately boosts alertness and mood"
+    },
+    {
+      "id": "mindful_001",
+      "category": "mindful",
+      "title": "5-4-3-2-1 Grounding",
+      "description": "Come back to the present moment.",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "instruction": "Notice: 5 things you see, 4 you hear, 3 you feel, 2 you smell, 1 you taste.",
+        "question": "Were you able to notice all five senses?",
+        "options": [
+          "Yes, it brought me back to now",
+          "Mostly — some senses were hard",
+          "I tried, but my mind wandered",
+          "I'll try again more slowly"
+        ],
+        "completion": "This technique works anytime you feel overwhelmed or anxious."
+      },
+      "evidence": "Grounding technique from anxiety treatment protocols"
+    },
+    {
+      "id": "mindful_002",
+      "category": "mindful",
+      "title": "Mindful Coffee/Tea",
+      "description": "Turn a daily habit into a meditation.",
+      "uiType": "simple_choice",
+      "stardust": 40,
+      "content": {
+        "instruction": "With your next drink, pay full attention: warmth, smell, taste, sensation.",
+        "question": "What did you notice when paying full attention?",
+        "options": [
+          "Flavors I usually miss",
+          "The warmth felt comforting",
+          "I slowed down naturally",
+          "My mind still wandered, but I tried",
+          "I don't have a drink right now"
+        ]
+      },
+      "evidence": "Everyday mindfulness is as effective as formal meditation"
+    },
+    {
+      "id": "mindful_003",
+      "category": "mindful",
+      "title": "Sound Awareness",
+      "description": "What sounds surround you right now?",
+      "uiType": "multi_select",
+      "stardust": 35,
+      "content": {
+        "instruction": "Close your eyes for 30 seconds. Notice every sound.",
+        "question": "What did you hear?",
+        "multiSelect": true,
+        "options": [
+          "Traffic or city noise",
+          "Nature sounds",
+          "Appliances humming",
+          "People talking",
+          "Music or media",
+          "Silence",
+          "My own breathing",
+          "Sounds I usually tune out"
+        ]
+      },
+      "evidence": "Sound meditation increases present-moment awareness"
+    },
+    {
+      "id": "mindful_004",
+      "category": "mindful",
+      "title": "Single-Tasking",
+      "description": "Do one thing at a time, fully.",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "question": "Right now, how many things are competing for your attention?",
+        "options": [
+          "Just this task",
+          "2-3 things",
+          "Several tabs and tasks",
+          "Too many to count"
+        ],
+        "instruction": "For the next 10 minutes, commit to ONE task only.",
+        "completion": "Multitasking is a myth. Single-tasking is a superpower."
+      },
+      "evidence": "Monotasking improves focus and reduces stress (multitasking research)"
+    },
+    {
+      "id": "mindful_005",
+      "category": "mindful",
+      "title": "Body Awareness",
+      "description": "What is your body telling you?",
+      "uiType": "multi_select",
+      "stardust": 40,
+      "content": {
+        "instruction": "Scan your body right now. What sensations do you notice?",
+        "question": "Check all that apply:",
+        "multiSelect": true,
+        "options": [
+          "Tension somewhere",
+          "Tiredness",
+          "Hunger or thirst",
+          "Restlessness",
+          "Comfort",
+          "Pain or discomfort",
+          "Nothing specific"
+        ],
+        "completion": "Your body sends signals before your mind notices. Listen more often."
+      },
+      "evidence": "Interoceptive awareness improves emotional regulation"
+    },
+    {
+      "id": "mindful_006",
+      "category": "mindful",
+      "title": "Thought Watching",
+      "description": "Observe your thoughts like clouds passing.",
+      "uiType": "simple_choice",
+      "stardust": 50,
+      "content": {
+        "instruction": "For 2 minutes, just notice thoughts without engaging. Let them pass.",
+        "question": "What was that like?",
+        "options": [
+          "Calming — thoughts slowed down",
+          "Revealing — I saw patterns",
+          "Challenging — thoughts kept pulling me in",
+          "Strange — I'm not used to this",
+          "I couldn't do it for long"
+        ],
+        "completion": "You are not your thoughts. You're the one watching them."
+      },
+      "evidence": "Cognitive defusion technique from Acceptance and Commitment Therapy"
+    },
+    {
+      "id": "mindful_007",
+      "category": "mindful",
+      "title": "Waiting Meditation",
+      "description": "Turn dead time into present time.",
+      "uiType": "simple_choice",
+      "stardust": 35,
+      "content": {
+        "question": "Next time you're waiting (in line, for something to load, etc.):",
+        "instruction": "Instead of reaching for your phone, just be present. Notice your surroundings.",
+        "options": [
+          "I'll try this today",
+          "I already did this recently",
+          "This sounds hard for me",
+          "I don't have much waiting time"
+        ],
+        "completion": "Waiting is free meditation time. Most people miss it."
+      },
+      "evidence": "Informal mindfulness opportunities throughout the day"
+    },
+    {
+      "id": "mindful_008",
+      "category": "mindful",
+      "title": "Mindful Eating",
+      "description": "Taste your food like it's the first time.",
+      "uiType": "simple_choice",
+      "stardust": 45,
+      "content": {
+        "instruction": "At your next meal, eat the first few bites with full attention. No phone, no reading.",
+        "question": "How often do you eat without distractions?",
+        "options": [
+          "Almost never",
+          "Rarely",
+          "Sometimes",
+          "Usually",
+          "I try to eat mindfully"
+        ],
+        "completion": "When you eat, just eat. You'll enjoy food more and eat more appropriately."
+      },
+      "evidence": "Mindful eating improves digestion and food satisfaction"
+    },
+    {
+      "id": "mindful_009",
+      "category": "mindful",
+      "title": "Appreciation Pause",
+      "description": "Stop and really look at something beautiful.",
+      "uiType": "choice_with_note",
+      "stardust": 40,
+      "content": {
+        "instruction": "Find something visually pleasing around you. Look at it for 30 seconds.",
+        "question": "What did you choose to appreciate?",
+        "options": [
+          "Something in nature",
+          "Art or decoration",
+          "The sky or light",
+          "A person",
+          "An everyday object I usually ignore",
+          "Something on my screen"
+        ],
+        "notePrompt": "What made it beautiful?",
+        "notePlaceholder": "Optional: describe it..."
+      },
+      "evidence": "Aesthetic appreciation increases positive emotions"
+    },
+    {
+      "id": "mindful_010",
+      "category": "mindful",
+      "title": "Transition Moment",
+      "description": "Pause between activities.",
+      "uiType": "simple_choice",
+      "stardust": 35,
+      "content": {
+        "instruction": "Before starting your next task, take 3 breaths and consciously switch gears.",
+        "question": "How do you usually transition between tasks?",
+        "options": [
+          "I jump right to the next thing",
+          "I scroll my phone first",
+          "I take a short break",
+          "I consciously reset",
+          "I often feel scattered between tasks"
+        ],
+        "completion": "Transitions are opportunities to reset. Don't rush through them."
+      },
+      "evidence": "Transition rituals reduce mental fatigue and improve focus"
+    }
+  ]
+}
