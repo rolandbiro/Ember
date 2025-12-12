@@ -5,6 +5,7 @@ class UserService: ObservableObject {
     static let shared = UserService()
 
     @Published var user: User
+    @Published var levelUpInfo: LevelInfo? = nil  // Set when user levels up
 
     private let userDefaultsKey = "ember_user"
 
@@ -30,10 +31,15 @@ class UserService: ObservableObject {
     }
 
     func checkLevelUp() {
-        let newLevel = LevelInfo.level(for: user.stardust).level
-        if newLevel > user.level {
-            user.level = newLevel
+        let newLevelInfo = LevelInfo.level(for: user.stardust)
+        if newLevelInfo.level > user.level {
+            user.level = newLevelInfo.level
+            levelUpInfo = newLevelInfo  // Trigger celebration
         }
+    }
+
+    func clearLevelUp() {
+        levelUpInfo = nil
     }
 
     func updateStreak() {

@@ -71,6 +71,13 @@ struct HomeView: View {
             .navigationDestination(item: $selectedTask) { task in
                 TaskDetailView(dailyTask: task)
             }
+            .overlay {
+                if let levelUp = userService.levelUpInfo {
+                    LevelUpCelebrationView(levelInfo: levelUp) {
+                        userService.clearLevelUp()
+                    }
+                }
+            }
         }
     }
 }
