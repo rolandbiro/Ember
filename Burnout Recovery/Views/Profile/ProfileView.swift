@@ -17,9 +17,11 @@ struct ProfileView: View {
                             .padding(.horizontal, 20)
                         BadgesSection(earnedBadgeIds: userService.user.earnedBadgeIds)
                             .padding(.horizontal, 20)
+
+                        // Spacer for tab bar
+                        Color.clear.frame(height: 80)
                     }
                     .padding(.top, 20)
-                    .padding(.bottom, 100)
                 }
                 .scrollIndicators(.visible)
             }
